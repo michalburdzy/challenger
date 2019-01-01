@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { dbURI } = require('../config/keys/');
+const logger = require('../services/winston');
 
 mongoose.connect(
   dbURI,
@@ -12,20 +13,20 @@ mongoose.connect(
 );
 
 mongoose.connection.on('connected', () => {
-  console.log('Mongoose default connection open');
+  logger.info('Mongoose default connection open');
 });
 
 mongoose.connection.on('error', (err) => {
-  console.log(`Mongoose default connection error: ${err}`);
+  logger.info(`Mongoose default connection error: ${err}`);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose default connection disconnected');
+  logger.info('Mongoose default connection disconnected');
 });
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {
-    console.log(
+    logger.info(
       'Mongoose default connection disconnected through app termination',
     );
     process.exit(0);
