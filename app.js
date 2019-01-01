@@ -84,7 +84,6 @@ async (accessToken, refreshToken, profile, cb) => {
     // emails,
   } = profile;
   const redditId = profile.id;
-  const picture = profile._json.subreddit.icon_img;
 
   const foundUser = await User.findOne({ redditId });
   if (!foundUser) {
@@ -92,9 +91,6 @@ async (accessToken, refreshToken, profile, cb) => {
       {
         redditId,
         name,
-        // gender,
-        picture,
-        // emails,
       },
       (err) => {
         if (err) {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const challengeSchema = require('./challenges');
 
 const userSchema = new mongoose.Schema({
   googleId: String,
@@ -7,6 +8,9 @@ const userSchema = new mongoose.Schema({
   gender: { type: String },
   emails: [{ value: String }],
   picture: { type: String },
+  challenges: {
+    type: [challengeSchema],
+  },
 });
 
 const User = mongoose.model('user', userSchema);
