@@ -10,7 +10,7 @@ router.get(
   ),
 );
 router.get('/callback', passport.authenticate('google'), (req, res) => {
-  res.redirect('/api/current_user');
+  res.send(req.user);
 });
 
 module.exports = router;

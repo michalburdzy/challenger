@@ -3,6 +3,7 @@ const passport = require('passport');
 // require('./services/passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const RedditStrategy = require('passport-reddit').Strategy;
 const bodyParser = require('body-parser');
 const {
   GOOGLE_CLIENT_ID,
@@ -10,14 +11,15 @@ const {
   cookieKey,
 } = require('./config/keys');
 const { User } = require('./models');
-const googleAuthRoute = require('./authRoutes/google');
+const googleAuthRoutes = require('./authRoutes/google');
+const redditAuthRoutes = require('./authRoutes/reddit');
 
 const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
@@ -52,8 +54,7 @@ passport.use(
         const newUser = await User.create(
           {
             googleId,
-            givenName,
-            familyName,
+            name: `${givenName} ${familyName}`,
             gender,
             picture,
             emails,
@@ -71,6 +72,41 @@ passport.use(
   ),
 );
 
+passport.use(new RedditStrategy({
+  clientID: 'cTG3AZw18CbBDg',
+  clientSecret: 'WYZNkYyo4Pp7CYCpSMEwlx-_WBA',
+  callbackURL: '/auth/reddit/callback',
+},
+async (accessToken, refreshToken, profile, cb) => {
+  const {
+    name,
+    // gender,
+    // emails,
+  } = profile;
+  const redditId = profile.id;
+  const picture = profile._json.subreddit.icon_img;
+
+  const foundUser = await User.findOne({ redditId });
+  if (!foundUser) {
+    const newUser = await User.create(
+      {
+        redditId,
+        name,
+        // gender,
+        picture,
+        // emails,
+      },
+      (err) => {
+        if (err) {
+          throw err;
+        }
+      },
+    );
+    return cb(null, newUser);
+  }
+  return cb(null, foundUser);
+}));
+
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -78,14 +114,19 @@ app.use(
   }),
 );
 
-app.use('/auth/google', googleAuthRoute);
+app.use('/auth/google', googleAuthRoutes);
+app.use('/auth/reddit', redditAuthRoutes);
 
 app.get('/api/current_user', (req, res) => {
-  res.send(req.session.passport.user);
+  res.send(req.session.passport);
 });
 
 app.get('/', (req, res) => {
   res.send('oki');
+});
+
+app.get('/privacy', (req, res) => {
+  res.render('privacy');
 });
 
 app.listen(PORT, () => {
