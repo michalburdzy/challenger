@@ -1,31 +1,32 @@
 const mongoose = require('mongoose');
-const { dbURI } = require('../keys/');
+const { dbURI } = require('../config/keys/');
+
 mongoose.connect(
   dbURI,
   { useNewUrlParser: true },
-  err => {
+  (err) => {
     if (err) {
       throw err;
     }
-  }
+  },
 );
 
-mongoose.connection.on('connected', function() {
+mongoose.connection.on('connected', () => {
   console.log('Mongoose default connection open');
 });
 
-mongoose.connection.on('error', function(err) {
-  console.log('Mongoose default connection error: ' + err);
+mongoose.connection.on('error', (err) => {
+  console.log(`Mongoose default connection error: ${err}`);
 });
 
-mongoose.connection.on('disconnected', function() {
+mongoose.connection.on('disconnected', () => {
   console.log('Mongoose default connection disconnected');
 });
 
-process.on('SIGINT', function() {
-  mongoose.connection.close(function() {
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
     console.log(
-      'Mongoose default connection disconnected through app termination'
+      'Mongoose default connection disconnected through app termination',
     );
     process.exit(0);
   });

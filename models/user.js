@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   familyName: { type: String, required: true },
   gender: { type: String },
   emails: [{ value: String }],
-  picture: { type: String }
+  picture: { type: String },
 });
 
 const User = mongoose.model('user', userSchema);
