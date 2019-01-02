@@ -10,20 +10,6 @@ const {
 const { User } = require('../models');
 
 module.exports = (app) => {
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser((id, done) => {
-    User.findById(id).then((usr) => {
-      done(null, usr);
-    });
-  });
-
-
   passport.use(
     new GoogleStrategy(
       {
@@ -63,34 +49,50 @@ module.exports = (app) => {
     ),
   );
 
-  passport.use(new RedditStrategy({
-    clientID: REDDIT_CLIENT_ID,
-    clientSecret: REDDIT_CLIENT_SECRET,
-    callbackURL: '/auth/reddit/callback',
-  },
-  async (accessToken, refreshToken, profile, cb) => {
-    const {
-      name,
-      // gender,
-      // emails,
-    } = profile;
-    const redditId = profile.id;
-
-    const foundUser = await User.findOne({ redditId });
-    if (!foundUser) {
-      const newUser = await User.create(
-        {
-          redditId,
+  passport.use(
+    new RedditStrategy(
+      {
+        clientID: REDDIT_CLIENT_ID,
+        clientSecret: REDDIT_CLIENT_SECRET,
+        callbackURL: '/auth/reddit/callback',
+      },
+      async (accessToken, refreshToken, profile, cb) => {
+        const {
           name,
-        },
-        (err) => {
-          if (err) {
-            throw err;
-          }
-        },
-      );
-      return cb(null, newUser);
-    }
-    return cb(null, foundUser);
-  }));
+          // gender,
+          // emails,
+        } = profile;
+        const redditId = profile.id;
+
+        const foundUser = await User.findOne({ redditId });
+        if (!foundUser) {
+          const newUser = await User.create(
+            {
+              redditId,
+              name,
+            },
+            (err) => {
+              if (err) {
+                throw err;
+              }
+            },
+          );
+          return cb(null, newUser);
+        }
+        return cb(null, foundUser);
+      },
+    ),
+  );
+  // passport.serializeUser((user, done) => {
+  //   done(null, user.id);
+  // });
+
+  // passport.deserializeUser((id, done) => {
+  //   console.log(id);
+  //   User.findById(id).then((usr) => {
+  //     done(null, usr);
+  //   });
+  // });
+  // app.use(passport.initialize());
+  // app.use(passport.session());
 };

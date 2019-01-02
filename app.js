@@ -1,34 +1,36 @@
-const app = require('express')();
+const express = require('express');
 const passport = require('passport');
-// require('./services/passport');
+const Strategy = require('passport-local').Strategy;
 const cookieSession = require('cookie-session');
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const RedditStrategy = require('passport-reddit').Strategy;
 const bodyParser = require('body-parser');
-const {
-  // GOOGLE_CLIENT_ID,
-  // GOOGLE_CLIENT_SECRET,
-  cookieKey,
-} = require('./config/keys');
-// const { User } = require('./models');
-const googleAuthRoutes = require('./authRoutes/google');
-const redditAuthRoutes = require('./authRoutes/reddit');
 const logger = require('./services/winston');
+const { cookieKey } = require('./config/keys');
+const { User } = require('./models');
 
 const PORT = process.env.PORT || 5000;
-app.use(bodyParser.json());
 
-app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [cookieKey],
-  }),
-);
+const googleAuthRoutes = require('./authRoutes/google');
+const redditAuthRoutes = require('./authRoutes/reddit');
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((usr) => {
+    done(null, usr);
+  });
+});
+const app = express();
 require('./services/passport')(app);
 
-// app.use('/auth/google', googleAuthRoutes);
-// app.use('/auth/reddit', redditAuthRoutes);
+app.use(bodyParser.json());
+app.use(require('cookie-parser')());
+app.use(require('express-session')({ secret: cookieKey, resave: false, saveUninitialized: false }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 require('./authRoutes/google')(app);
 require('./authRoutes/reddit')(app);
 
@@ -37,7 +39,8 @@ app.get('/api/current_user', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send(req.user);
+  res.send(`User: ${req.user},
+  cookiesUser: ${req.session.passport}`);
 });
 
 app.get('/api/logout', (req, res) => {

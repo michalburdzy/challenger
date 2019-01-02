@@ -1,5 +1,3 @@
-
-// const router = require('express').Router();
 const passport = require('passport');
 const crypto = require('crypto');
 
@@ -20,7 +18,7 @@ module.exports = (app) => {
         failureRedirect: '/login',
       })(req, res, next);
     } else {
-      next(new Error());
+      return res.status(400).json("That's error!");
     }
   });
 };
