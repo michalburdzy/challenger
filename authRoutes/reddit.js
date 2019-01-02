@@ -12,7 +12,7 @@ module.exports = (app) => {
 
   app.get('/auth/reddit/callback', (req, res, next) => {
     // Check for origin via state token
-    if (req.query.state === req.session.state) {
+    if (req.query.state == req.session.state) {
       passport.authenticate('reddit', {
         successRedirect: '/api/current_user',
         failureRedirect: '/login',

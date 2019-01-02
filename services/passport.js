@@ -28,7 +28,7 @@ module.exports = (app) => {
 
         const foundUser = await User.findOne({ googleId });
         if (!foundUser) {
-          const newUser = await User.create(
+          User.create(
             {
               googleId,
               name: `${givenName} ${familyName}`,
@@ -36,15 +36,16 @@ module.exports = (app) => {
               picture,
               emails,
             },
-            (err) => {
+            (err, user) => {
               if (err) {
                 throw err;
               }
+              return cb(null, user);
             },
           );
-          return cb(null, newUser);
+        } else {
+          return cb(null, foundUser);
         }
-        return cb(null, foundUser);
       },
     ),
   );
@@ -66,20 +67,21 @@ module.exports = (app) => {
 
         const foundUser = await User.findOne({ redditId });
         if (!foundUser) {
-          const newUser = await User.create(
+          User.create(
             {
               redditId,
               name,
             },
-            (err) => {
+            (err, user) => {
               if (err) {
                 throw err;
               }
+              return cb(null, user);
             },
           );
-          return cb(null, newUser);
+        } else {
+          return cb(null, foundUser);
         }
-        return cb(null, foundUser);
       },
     ),
   );
