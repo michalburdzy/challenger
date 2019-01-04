@@ -1,0 +1,63 @@
+Arguments: 
+  D:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\bin;C:\Users\Burdzyki\bin;D:\ProgramData\Anaconda3;D:\ProgramData\Anaconda3\Library\mingw-w64\bin;D:\ProgramData\Anaconda3\Library\usr\bin;D:\ProgramData\Anaconda3\Library\bin;D:\ProgramData\Anaconda3\Scripts;C:\Python27;C:\Python27\Scripts;C:\ProgramData\Boxstarter;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Broadcom\Broadcom 802.11 Network Adapter\Driver;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\WIDCOMM\Bluetooth Software;C:\Program Files\WIDCOMM\Bluetooth Software\syswow64;D:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;D:\Program Files\Git\cmd;D:\Program Files\MongoDB\Server\4.0\bin;D:\Program Files\PuTTY;C:\Program Files (x86)\Yarn\bin;C:\Users\Burdzyki\AppData\Roaming\npm;D:\Program Files\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Users\Burdzyki\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.12.3
+
+Node version: 
+  8.12.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: D:\programowanie\Challenger\package.json: Unexpected token } in JSON at position 906
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1631:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:304:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:315:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "challenger",
+    "version": "0.0.1",
+    "description": "Progress tracking web app",
+    "main": "app.js",
+    "repository": "https://github.com/mmicalt/challenger.git",
+    "author": "Michal Burdzy (mmicalt)",
+    "license": "MIT",
+    "private": false,
+    "dependencies": {
+      "body-parser": "^1.18.3",
+      "concurrently": "^4.1.0",
+      "cookie-parser": "^1.4.3",
+      "cookie-session": "^2.0.0-beta.3",
+      "express": "^4.16.4",
+      "express-session": "^1.15.6",
+      "mongoose": "^5.4.1",
+      "passport": "^0.4.0",
+      "passport-facebook": "^2.1.1",
+      "passport-google-oauth20": "^1.0.0",
+      "passport-local": "^1.0.0",
+      "passport-reddit": "^0.2.4",
+      "pre-commit": "^1.2.2",
+      "winston": "^3.1.0"
+    },
+    "scripts": {
+      "server": "nodemon app.js",
+      "client": "cd client && yarn start",
+      "dev": "concurrently \"yarn client\" \"yarn server\"",
+      "inspect": "nodemon --inspect app.js",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

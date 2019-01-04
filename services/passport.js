@@ -55,7 +55,7 @@ module.exports = (app) => {
       {
         clientID: REDDIT_CLIENT_ID,
         clientSecret: REDDIT_CLIENT_SECRET,
-        callbackURL: '/auth/reddit/callback',
+        callbackURL: '/auth/reddit/callback'
       },
       async (accessToken, refreshToken, profile, cb) => {
         const {

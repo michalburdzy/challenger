@@ -27,7 +27,6 @@
     "server": "nodemon app.js",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
-    "inspect": "nodemon --inspect app.js",
-    "lint": "eslint --fix ./"
+    "inspect": "nodemon --inspect app.js"
   }
 }

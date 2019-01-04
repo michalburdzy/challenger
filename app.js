@@ -35,7 +35,7 @@ require('./authRoutes/google')(app);
 require('./authRoutes/reddit')(app);
 
 app.get('/api/current_user', (req, res) => {
-  res.send(req.user);
+  res.json({user: req.user});
 });
 
 app.get('/', (req, res) => {
