@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import reducer from './reducers'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import 'bulma/css/bulma.css'
 
 
 const store = createStore(reducer, applyMiddleware(thunk))
