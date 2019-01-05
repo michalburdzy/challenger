@@ -1,6 +1,7 @@
 const logger = require('../services/winston');
 const requireLogin = require('../middleware/requireLogin');
 const Challenge = require('../models/challenge');
+const User = require('../models')
 
 
 module.exports = (app) => {
@@ -19,23 +20,19 @@ module.exports = (app) => {
 		return res.redirect('/');
 	});
   
-	app.get('/api/current_user/challenges', requireLogin, (req, res) => {
-		const challenges = Challenge.find({user: req.user._id});
-		logger.info(challenges);
+	app.get('/api/current_user/challenges', requireLogin, async (req, res) => {
+		const challenges = await Challenge.find({user: req.user._id});
 		res.json(challenges);
 	});
 
 	app.post('/api/current_user/challenges', requireLogin, async (req, res) => {
+		const currUser = req.user;
 		const ending = new Date();
-		const user = req.user._id;
+		const user = currUser._id;
 		const {title} = req.body;
 		const newChallenge = await Challenge.create({user, title, ending});
-		logger.info(newChallenge);
-		const updatedUser = req.user.challenges.push(newChallenge._id);
-		await updatedUser.save();
-		logger.info(updatedUser);
+		await currUser.updateOne({$push: {challenges: newChallenge._id}})
 		res.redirect('/challenges');
-		res.json('OKI MAROKI');
 	});
 };
 

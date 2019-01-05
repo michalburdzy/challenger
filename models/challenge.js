@@ -4,7 +4,7 @@ const ChallengeDaySchema = require('./challengeDay');
 const challengeSchema = new mongoose.Schema({
 	user: {type: mongoose.Schema.Types.ObjectId, required: true},
 	title: { type: String, required: true },
-	notes: String,
+	description: String,
 	starting: {type: Date, default: Date.now, required: true},
 	ending: {type: Date, required: true},
 	days: [ChallengeDaySchema]

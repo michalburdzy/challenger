@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import {connect } from 'react-redux';
-import * as actions from '../actions'
 
 class Navbar extends Component {
-  componentDidMount(){
-    this.props.fetchUser()
-  }
-
   render() {
-
     if(this.props.user === null || this.props.user === undefined){
       return (
         <div className="navbar is-light" role="navigation" aria-label="main navigation">
@@ -53,9 +46,4 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {user: state.user}
-}
-
-
-export default connect(mapStateToProps, actions)(Navbar);
+export default Navbar;

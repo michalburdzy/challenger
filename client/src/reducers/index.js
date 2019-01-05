@@ -1,4 +1,4 @@
-import { USER_LOGIN } from '../actions/actionTypes'
+import { USER_LOGIN, FETCH_CHALLENGES } from '../actions/actionTypes'
 
 const initialState = {user: null};
 
@@ -8,6 +8,11 @@ const rootReducer = (state=initialState, action) =>{
       return {
         ...state,
         user: action.user
+      }
+    case FETCH_CHALLENGES: 
+      return {
+        ...state,
+        challenges: action.challenges
       }
     default: 
       return state;
