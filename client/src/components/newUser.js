@@ -5,14 +5,18 @@ class NewUser extends Component {
     return (
       <div>
         <form>
-          <label for='userName'>User display name</label>
+          <label >User display name
           <input name='userName' type='text'/>
-          <label for='userDisplayName'>Name</label>
+          </label>
+          <label >Name
           <input name='userDisplayName' type='text'/>
-          <label for='userEmail'>Email</label>
+          </label>
+          <label >Email
           <input name='userEmail' type='text'/>
-          <label for='userImageUrl'>Avatar url</label>
+          </label>
+          <label >Avatar url
           <input name='userImageUrl' type='text'/>
+          </label>
           <button type='submit'>Create user</button>
         </form>
       </div>

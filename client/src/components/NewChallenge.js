@@ -5,14 +5,18 @@ class NewChallenge extends Component {
     return (
       <div>
         <form>
-          <label for='challengeTitle'>Challenge title</label>
+          <label >Challenge title
           <input name='challengeTitle' type='text'/>
-          <label for='challengeStartDate'>Challenge start date</label>
+          </label>
+          <label >Challenge start date
           <input name='challengeStartDate' type='date'/>
-          <label for='challengeEndDate'>Challenge end date</label>
+          </label>
+          <label >Challenge end date
           <input name='challengeEndDate' type='date'/>
-          <label for='challengeDescription'>Challenge description</label>
+          </label>
+          <label >Challenge description
           <input name='challengeDescription' type='textarea'/>
+          </label>
           <button type='submit'>Add challenge</button>
         </form>
       </div>

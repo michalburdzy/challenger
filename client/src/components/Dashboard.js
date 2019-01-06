@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
+import LoginScreen from './LoginScreen'
+import * as actions from '../actions'
+import {connect } from 'react-redux'
 
-class NewChallenge extends Component {
+class Dashboard extends Component {
+  componentDidMount(){
+    this.props.fetchUser()
+    this.props.fetchChallenges()
+  }
   render() {
+    if(!this.props.user){
+      return <LoginScreen />
+    }
     return (
       <div >
         Dashboard
@@ -10,4 +20,7 @@ class NewChallenge extends Component {
   }
 }
 
-export default NewChallenge;
+const mapStateToProps = (state) => {
+  return {user: state.user, challenges: state.challenges}
+}
+export default connect(mapStateToProps, actions)(Dashboard);

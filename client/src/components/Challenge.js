@@ -1,4 +1,7 @@
 import React from 'react';
+import LoginScreen from './LoginScreen'
+import {connect } from 'react-redux'
+import * as actions from '../actions'
 
 const Challenge = props => {
     return (
@@ -12,5 +15,7 @@ const Challenge = props => {
       </div>
     );
   }
-
-export default Challenge;
+  const mapStateToProps = (state) => {
+    return {user: state.user, challenges: state.challenges}
+  }
+  export default connect(mapStateToProps, actions)(Challenge);

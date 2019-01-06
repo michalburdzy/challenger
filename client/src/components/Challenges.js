@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import {connect } from 'react-redux'
 import * as actions from '../actions'
 import Challenge from './Challenge'
+import LoginScreen from './LoginScreen'
 
 class Challenges extends Component {
   componentDidMount(){
     this.props.fetchChallenges();
   }
   render() {
-    console.log(this.props)
     let challenges = 'Loading challenges...'
     if(!this.props.user){
-      challenges = <div>Login first!</div>
+      challenges = <LoginScreen />
     }
     if(this.props.user && this.props.challenges){
       challenges = this.props.challenges.map(el => <Challenge key={el._id} challenge={el}/>)
