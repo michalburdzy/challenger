@@ -1,7 +1,5 @@
-const logger = require('../services/winston');
 const requireLogin = require('../middleware/requireLogin');
 const Challenge = require('../models/challenge');
-const User = require('../models')
 
 
 module.exports = (app) => {
@@ -31,7 +29,7 @@ module.exports = (app) => {
 		const user = currUser._id;
 		const {title} = req.body;
 		const newChallenge = await Challenge.create({user, title, ending});
-		await currUser.updateOne({$push: {challenges: newChallenge._id}})
+		await currUser.updateOne({$push: {challenges: newChallenge._id}});
 		res.redirect('/challenges');
 	});
 };

@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Dashboard from './Dashboard'
 import Challenges from './Challenges'
 import NewChallenge from './NewChallenge'
+import NewUser from './NewUser'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import * as actions from '../actions'
 import {connect } from 'react-redux';
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path='/' exact component={Dashboard}/>
             <Route path='/challenges' exact component={Challenges}/>
             <Route path='/challenges/new' component={NewChallenge}/>
+            <Route path='/users/new' component={NewUser}/>
           </div>
         </Router>
       </div>
