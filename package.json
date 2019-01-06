@@ -38,5 +38,5 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "^7.12.3"
   },
-  "pre-commit":"yarn lint"
+  "pre-commit":"lint"
 }
