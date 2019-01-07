@@ -5,19 +5,23 @@ class NewUser extends Component {
     return (
       <div>
         <form>
-          <label >User display name
-          <input name='userName' type='text'/>
+          <label>
+            User display name
+            <input name="userName" type="text" />
           </label>
-          <label >Name
-          <input name='userDisplayName' type='text'/>
+          <label>
+            Name
+            <input name="userDisplayName" type="text" />
           </label>
-          <label >Email
-          <input name='userEmail' type='text'/>
+          <label>
+            Email
+            <input name="userEmail" type="text" />
           </label>
-          <label >Avatar url
-          <input name='userImageUrl' type='text'/>
+          <label>
+            Avatar url
+            <input name="userImageUrl" type="text" />
           </label>
-          <button type='submit'>Create user</button>
+          <button type="submit">Create user</button>
         </form>
       </div>
     );

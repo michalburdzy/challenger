@@ -965,3 +965,8 @@
 {"message":"Mongoose default connection open","level":"info"}
 {"message":"Server listening on port 5000","level":"info"}
 {"message":"Mongoose default connection open","level":"info"}
+{"message":"Server listening on port 5000","level":"info"}
+{"message":"Mongoose default connection open","level":"info"}
+{"message":"Server listening on port 5000","level":"info"}
+{"message":"Mongoose default connection open","level":"info"}
+{"message":"Mongoose default connection disconnected","level":"error"}
