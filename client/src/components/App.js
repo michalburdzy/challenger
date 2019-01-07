@@ -4,7 +4,7 @@ import Dashboard from './Dashboard';
 import Challenges from './Challenges';
 import NewChallenge from './NewChallenge';
 import NewUser from './NewUser';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import LoginScreen from './LoginScreen';
@@ -15,18 +15,28 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="">
+      <div>
         <Navbar user={this.props.user} />
         <Router>
-          <Switch>
-            <div className="container">
+          <div className="container">
+            <nav className="breadcrumb is-centered" aria-label="breadcrumbs">
+              <ul>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <Link to="/challenges">Challenges</Link>
+                </li>
+              </ul>
+            </nav>
+            <Switch>
               <Route path="/login" exact component={LoginScreen} />
               <Route path="/challenges/new" exact component={NewChallenge} />
               <Route path="/challenges" exact component={Challenges} />
               <Route path="/users/new" exact component={NewUser} />
               <Route path="/" exact component={Dashboard} />
-            </div>
-          </Switch>
+            </Switch>
+          </div>
         </Router>
       </div>
     );
